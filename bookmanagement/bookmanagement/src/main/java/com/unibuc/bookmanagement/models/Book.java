@@ -2,11 +2,14 @@ package com.unibuc.bookmanagement.models;
 //import javax.persistence.GeneratedValue;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -29,6 +32,15 @@ public class Book {
 //    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 //    private List<UserBook> userBooks = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "bookgenres", // numele tabelei intermediare
+            joinColumns = @JoinColumn(name = "book_id"), // coloana cheie straina din tabela intermediara
+            inverseJoinColumns = @JoinColumn(name = "genre_id") // coloana cheie straina din tabela intermediara
+    )
+    @JsonIgnoreProperties("books")
+    private Set<Genre> genres;
+
     public Book(){}
 
     public Book(Long id, String title, String description, String isbn, Long authorId) // plus id si id_author
@@ -45,10 +57,12 @@ public class Book {
     public String getDescription() { return description; }
     public String getIsbn() { return isbn; }
     public Long getAuthorId() { return authorId; }
+    public Set<Genre> getGenres() { return genres; }
 
     public void setId(Long id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }
     public void setDescription(String description) { this.description = description; }
     public void setIsbn(String isbn) { this.isbn = isbn; }
     public void setAuthorId(Long authorId) { this.authorId = authorId; }
+    public void setGenres(Set<Genre> genres) { this.genres = genres; }
 }
