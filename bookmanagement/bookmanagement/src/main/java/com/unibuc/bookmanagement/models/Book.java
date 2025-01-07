@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -19,11 +21,14 @@ public class Book {
     private Long id;
 
     @NotBlank(message = "Title is required")
+    @Size(max = 50, message = "Title must not exceed 50 characters")
     private String title;
 
+    @Size(max = 500, message = "Description must not exceed 500 characters")
     private String description;
 
     @NotBlank(message = "ISBN is required")
+    @Pattern(regexp = "\\d{13}", message = "ISBN must be a 13-digit number")
     private String isbn;
 
     @NotNull(message = "Author ID is required")

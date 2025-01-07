@@ -2,6 +2,8 @@ package com.unibuc.bookmanagement.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "authors")
@@ -11,8 +13,13 @@ public class Author {
     private Long id;
 
     @NotBlank(message = "Name is required")
+    @Size(max = 50, message = "Name must not exceed 50 characters")
     private String name;
 
+    @Pattern(
+            regexp = "\\d{4}-\\d{2}-\\d{2}",
+            message = "Birth date must follow the format YYYY-MM-DD"
+    )
     private String birth_date;
 
     public Author(){}

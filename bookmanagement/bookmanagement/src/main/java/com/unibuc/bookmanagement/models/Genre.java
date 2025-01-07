@@ -2,6 +2,8 @@ package com.unibuc.bookmanagement.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -12,6 +14,8 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is required")
+    @Size(max = 25, message = "Name must not exceed 25 characters")
     private String name;
 
     @ManyToMany(mappedBy = "genres") // relatia inversa

@@ -1,0 +1,13 @@
+com\unibuc\bookmanagement\unit_tests\endpoints\UserBookControllerTest.class
+com\unibuc\bookmanagement\unit_tests\services\GenreServiceTest.class
+com\unibuc\bookmanagement\unit_tests\services\ReviewServiceTest.class
+com\unibuc\bookmanagement\unit_tests\endpoints\ReviewControllerTest.class
+com\unibuc\bookmanagement\unit_tests\endpoints\AuthorControllerTest.class
+com\unibuc\bookmanagement\unit_tests\services\BookServiceTest.class
+com\unibuc\bookmanagement\unit_tests\services\UserServiceTest.class
+com\unibuc\bookmanagement\unit_tests\endpoints\UserControllerTest.class
+com\unibuc\bookmanagement\unit_tests\endpoints\BookControllerTest.class
+com\unibuc\bookmanagement\unit_tests\services\AuthorServiceTest.class
+com\unibuc\bookmanagement\BookmanagementApplicationTests.class
+com\unibuc\bookmanagement\unit_tests\endpoints\GenreControllerTest.class
+com\unibuc\bookmanagement\unit_tests\services\UserBookServiceTest.class

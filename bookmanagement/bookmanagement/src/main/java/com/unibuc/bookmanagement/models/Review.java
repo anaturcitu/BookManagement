@@ -1,6 +1,7 @@
 package com.unibuc.bookmanagement.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
@@ -11,19 +12,27 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(max = 1500, message = "Content must not exceed 1500 characters")
     @Column
     private String content;
 
+    @NotNull(message = "Rating is required")
+    @Min(value = 1, message = "Rating must be at least 1")
+    @Max(value = 5, message = "Rating must be at most 5")
     @Column(nullable = false)
     private Integer rating;
 
+    @NotNull(message = "CreatedAt is required")
+    @PastOrPresent(message = "CreatedAt must be in the past or present")
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    @NotNull(message = "User is required")
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @NotNull(message = "Book is required")
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;

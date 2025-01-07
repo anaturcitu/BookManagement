@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.unibuc.bookmanagement.unit_tests.endpoints.BookControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.455 s -- in com.unibuc.bookmanagement.unit_tests.endpoints.BookControllerTest

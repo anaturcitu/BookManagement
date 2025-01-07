@@ -2,6 +2,7 @@ package com.unibuc.bookmanagement.controllers;
 
 import com.unibuc.bookmanagement.models.Genre;
 import com.unibuc.bookmanagement.services.GenreService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class GenreController {
     }
 
     @PostMapping
-    public Genre saveGenre(@RequestBody Genre genre) {
+    public Genre saveGenre(@Valid @RequestBody Genre genre) {
         return genreService.saveGenres(genre);
     }
 

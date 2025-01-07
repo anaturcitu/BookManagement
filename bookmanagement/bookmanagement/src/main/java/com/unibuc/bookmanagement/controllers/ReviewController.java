@@ -2,6 +2,7 @@ package com.unibuc.bookmanagement.controllers;
 
 import com.unibuc.bookmanagement.models.Review;
 import com.unibuc.bookmanagement.services.ReviewService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<Review> createReview(@RequestBody Review review) {
+    public ResponseEntity<Review> createReview(@Valid @RequestBody Review review) {
         return ResponseEntity.ok(reviewService.createReview(review));
     }
 
