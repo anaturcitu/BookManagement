@@ -35,9 +35,9 @@ public class GenreController {
 //        genreService.deleteGenre(id);
 //    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteGenre(@PathVariable Long id) {
-        genreService.deleteGenre(id);
-        return ResponseEntity.ok("Genre deleted successfully");
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<String> deleteGenre(@PathVariable Long id) {
+//        genreService.deleteGenre(id);
+//        return ResponseEntity.ok("Genre deleted successfully");
+//    }
 }

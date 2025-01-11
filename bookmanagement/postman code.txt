@@ -1,0 +1,63 @@
+-- 1 pentru adaugare in tabela USERS:
+{
+  "username": "Ana Popescu",
+  "email": "ana_popescu@example.com",
+  "password": "Parola123**"
+}
+
+-- 2 pentru adaugare in tabela AUTHORS:
+{
+  "name": "Ana Popescu",
+  "birth_date": "03.12.2000"
+}
+
+-- 3 pentru adaugare in tabela GENRES:
+{
+  "name": "Science Fiction"
+}
+
+-- 4 pentru adaugare in tabela BOOKS:
+{
+  "title": "Dune",
+  "description": "A science fiction novel",
+  "isbn": "978-0441172719",
+  "authorId": 1,
+  "genres": [
+    {
+      "id": 1
+    }
+  ]
+}
+
+-- 5 pentru adaugare in tabela USERBOOKS:
+{
+  "id": {
+    "userId": 8,
+    "bookId": 1
+  },
+  "book": {
+    "id": 1
+  },
+  "user": {
+    "id": 8
+  },
+  "status": "Reading",
+  "addedAt": "2024-12-01T12:00:00"
+}
+
+-- 6 pentru adaugare in tabela REVIEWS:
+{
+  "content": "Foarte buna cartea recomand",
+  "rating": 5,
+  "userId": 5,
+  "bookId": 10,
+  "user":
+    {
+        "id": 5
+    },
+    "book":
+    {
+        "id": 10
+    }
+}
+

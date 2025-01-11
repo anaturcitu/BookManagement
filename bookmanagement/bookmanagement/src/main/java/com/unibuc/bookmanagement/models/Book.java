@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,10 +35,13 @@ public class Book {
     @NotNull(message = "Author ID is required")
     private Long authorId;
 
-//    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-//    private List<UserBook> userBooks = new ArrayList<>();
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserBook> userBooks = new ArrayList<>();
 
-    @ManyToMany
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
             name = "bookgenres", // numele tabelei intermediare
             joinColumns = @JoinColumn(name = "book_id"), // coloana cheie straina din tabela intermediara

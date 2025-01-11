@@ -24,7 +24,7 @@ public class GenreService {
         return genreRepository.findById(id).orElse(null);
     }
 
-    public void deleteGenre(Long id) {
-        genreRepository.deleteById(id);
-    }
+//    public void deleteGenre(Long id) {
+//        genreRepository.deleteById(id);
+//    }
 }
