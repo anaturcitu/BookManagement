@@ -2,7 +2,7 @@
 Am creat o platforma interactiva pentru cititori, cu ajutorul careia utilizatorii isi pot evalua cartile preferate, pot scrie recenzii si le pot organiza in liste cu ajutorul carora isi pot planifica lecturile viitoare (to-read), pot monitoriza progresul actual (reading) si pot retine istoricul lecturilor (completed).
 
 <h2>1.  10 cerinte pentru domeniul ales:</h2>
-<p>1. Utilizatorii pot crea conturi si se pot autentifica.</p>
+<p>1. Utilizatorii se pot inregistra in aplicatie.</p>
 <p>2. Utilizatorii pot vizualiza  detaliile si informatiile cartilor.</p>
 <p>3. Utilizatorii pot vizualiza informatii despre autori.</p>
 <p>3. Utilizatorii pot adauga carti la diferite liste personale (to-read, reading, completed).</p>
@@ -10,9 +10,9 @@ Am creat o platforma interactiva pentru cititori, cu ajutorul careia utilizatori
 <p>5. Utilizatorii pot evalua carti (de la 1 la 5).</p>
 <p>6. Administratorii pot adauga si sterge carti.</p>
 <p>7. Administratorii pot adauga si sterge autori.</p>
-<p>8. </p>
-<p>9. </p>
-<p>10. </p>
+<p>8. Administratorii pot adauga genuri de carti.</p>
+<p>9. Cartile pot fi asociate cu utilizatorii prin entitatea UserBook.</p>
+<p>10. Cartile pot fi asociate cu unul sau mai multe genuri prin entitatea BookGenre.</p>
 
 <br/>
 <h2>2.  Document pentru MVP:</h2>
