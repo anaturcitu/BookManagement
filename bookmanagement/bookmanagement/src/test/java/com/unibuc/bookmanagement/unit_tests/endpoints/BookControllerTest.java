@@ -32,6 +32,7 @@ public class BookControllerTest {
         book.setId(1L);
         book.setTitle("Test Book");
         book.setAuthorId(10L);
+        book.setIsbn("1234567890");
 
         when(bookService.createBook(any(Book.class))).thenReturn(book);
 
@@ -41,7 +42,8 @@ public class BookControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.title").value("Test Book"))
-                .andExpect(jsonPath("$.authorId").value(10L));
+                .andExpect(jsonPath("$.authorId").value(10L))
+                .andExpect(jsonPath("$.isbn").value("1234567890"));
 
         verify(bookService, times(1)).createBook(any(Book.class));
     }

@@ -63,15 +63,4 @@ public class GenreServiceTest {
         assertEquals("Mystery", result.getName());
         verify(genreRepository, times(1)).findById(1L);
     }
-
-    @Test
-    void testDeleteGenre() {
-        Long genreId = 1L;
-
-        doNothing().when(genreRepository).deleteById(genreId);
-
-        genreService.deleteGenre(genreId);
-
-        verify(genreRepository, times(1)).deleteById(genreId);
-    }
 }

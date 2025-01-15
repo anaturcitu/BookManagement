@@ -22,9 +22,6 @@ public class Review {
     @Column(nullable = false)
     private Integer rating;
 
-    @NotNull(message = "CreatedAt is required")
-    @PastOrPresent(message = "CreatedAt must be in the past or present")
-    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     @NotNull(message = "User is required")
@@ -36,6 +33,13 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();  // setam data curenta
+        }
+    }
 
     public Long getId() { return id; }
     public String getContent() { return content; }

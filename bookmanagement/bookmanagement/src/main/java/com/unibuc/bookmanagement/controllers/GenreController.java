@@ -29,15 +29,4 @@ public class GenreController {
     public Genre getGenreById(@PathVariable Long id) {
         return genreService.getGenreById(id);
     }
-
-//    @DeleteMapping("/{id}")
-//    public void deleteGenre(@PathVariable Long id) {
-//        genreService.deleteGenre(id);
-//    }
-
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<String> deleteGenre(@PathVariable Long id) {
-//        genreService.deleteGenre(id);
-//        return ResponseEntity.ok("Genre deleted successfully");
-//    }
 }

@@ -25,12 +25,12 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getReviewById(id));
     }
 
-    @GetMapping("/book/{bookId}")
+    @GetMapping("/review-book/{bookId}")
     public List<Review> getReviewsByBookId(@PathVariable Long bookId) {
         return reviewService.getReviewsByBookId(bookId);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/review-user/{userId}")
     public List<Review> getReviewsByUserId(@PathVariable Long userId) {
         return reviewService.getReviewsByUserId(userId);
     }

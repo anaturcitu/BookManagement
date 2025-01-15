@@ -8,23 +8,26 @@
 -- 2 pentru adaugare in tabela AUTHORS:
 {
   "name": "Ana Popescu",
-  "birth_date": "03.12.2000"
+  "birth_date": "2001-12-03"
 }
 
 -- 3 pentru adaugare in tabela GENRES:
 {
-  "name": "Science Fiction"
+  "name": "Poetry"
 }
 
 -- 4 pentru adaugare in tabela BOOKS:
 {
-  "title": "Dune",
+  "title": "Dune2",
   "description": "A science fiction novel",
-  "isbn": "978-0441172719",
-  "authorId": 1,
+  "isbn": "9780441172719",
+  "authorId": 12,
   "genres": [
     {
-      "id": 1
+      "id": 4
+    },
+    {
+      "id": 17
     }
   ]
 }
@@ -32,32 +35,30 @@
 -- 5 pentru adaugare in tabela USERBOOKS:
 {
   "id": {
-    "userId": 8,
-    "bookId": 1
+    "userId": 24,
+    "bookId": 20
   },
   "book": {
-    "id": 1
+    "id": 20
   },
   "user": {
-    "id": 8
+    "id": 24
   },
-  "status": "Reading",
-  "addedAt": "2024-12-01T12:00:00"
+  "status": "Reading"
 }
 
 -- 6 pentru adaugare in tabela REVIEWS:
 {
-  "content": "Foarte buna cartea recomand",
-  "rating": 5,
-  "userId": 5,
-  "bookId": 10,
+  "content": "Cartea este buna",
+  "rating": 4,
+  "userId": 22,
+  "bookId": 23,
   "user":
     {
-        "id": 5
+        "id": 22
     },
     "book":
     {
-        "id": 10
+        "id": 23
     }
 }
-

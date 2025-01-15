@@ -83,15 +83,4 @@ public class GenreControllerTest {
 
         verify(genreService, times(1)).getGenreById(1L);
     }
-
-    @Test
-    void testDeleteGenre() throws Exception {
-        doNothing().when(genreService).deleteGenre(1L);
-
-        mockMvc.perform(delete("/api/genres/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Genre deleted successfully"));
-
-        verify(genreService, times(1)).deleteGenre(1L);
-    }
 }

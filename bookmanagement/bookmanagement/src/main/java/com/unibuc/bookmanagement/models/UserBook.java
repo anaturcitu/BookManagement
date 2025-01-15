@@ -2,6 +2,7 @@ package com.unibuc.bookmanagement.models;
 
 import com.unibuc.bookmanagement.junction_tables.UserBookId;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,6 @@ public class UserBook {
     private UserBookId id;
     private String status;
 
-    @Column(name = "added_at")
     private LocalDateTime addedAt;
 
     @ManyToOne
@@ -33,6 +33,13 @@ public class UserBook {
         this.addedAt = addedAt;
         this.user = user;
         this.book = book;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        if (addedAt == null) {
+            addedAt = LocalDateTime.now();  // setam data curenta
+        }
     }
 
     public UserBookId getId() { return id; }
