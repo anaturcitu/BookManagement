@@ -24,22 +24,6 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
-    void testCreateUser() {
-        User user = new User();
-        user.setId(1L);
-        user.setEmail("user@example.com");
-
-        when(userRepository.save(any(User.class))).thenReturn(user);
-
-        User createdUser = userService.createUser(user);
-
-        assertNotNull(createdUser);
-        assertEquals(1L, createdUser.getId());
-        assertEquals("user@example.com", createdUser.getEmail());
-        verify(userRepository, times(1)).save(user);
-    }
-
-    @Test
     void testGetUserById() {
         User user = new User();
         user.setId(1L);

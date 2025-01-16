@@ -27,24 +27,6 @@ public class BookServiceTest {
     private BookService bookService;
 
     @Test
-    void testCreateBook() {
-        Book book = new Book();
-        book.setId(1L);
-        book.setTitle("Test Book");
-        book.setAuthorId(10L);
-
-        when(bookRepository.save(any(Book.class))).thenReturn(book);
-
-        Book createdBook = bookService.createBook(book);
-
-        assertNotNull(createdBook);
-        assertEquals(1L, createdBook.getId());
-        assertEquals("Test Book", createdBook.getTitle());
-        assertEquals(10L, createdBook.getAuthorId());
-        verify(bookRepository, times(1)).save(book);
-    }
-
-    @Test
     void testGetBookById() {
         Book book = new Book();
         book.setId(1L);

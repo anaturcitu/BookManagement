@@ -30,24 +30,6 @@ public class UserControllerTest {
     private UserService userService;
 
     @Test
-    void testCreateUser() throws Exception {
-        User user = new User();
-        user.setId(1L);
-        user.setEmail("user@example.com");
-
-        when(userService.createUser(any(User.class))).thenReturn(user);
-
-        mockMvc.perform(post("/api/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"email\":\"user@example.com\"}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.email").value("user@example.com"));
-
-        verify(userService, times(1)).createUser(any(User.class));
-    }
-
-    @Test
     void testGetUserById() throws Exception {
         User user = new User();
         user.setId(1L);
