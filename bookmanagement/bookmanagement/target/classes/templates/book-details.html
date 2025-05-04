@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalii carte</title>
+    <style>
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 40px auto;
+            max-width: 550px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+    </style>
+</head>
+    <body>
+        <h1 th:text="${book.title}">Titlu carte</h1>
+        <p><strong>Autor:</strong> <span th:text="${author.name}">Autor</span></p>
+        <p><strong>ISBN:</strong> <span th:text="${book.isbn}">ISBN</span> </p>
+        <p><strong>Descriere:</strong> <span th:text="${book.description}">Descriere</span> </p>
+    </body>
+
+<form th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="text-align: center; margin-top: 20px;">
+    <button type="submit"
+            style="padding: 10px 20px; background-color: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Șterge cartea
+    </button>
+</form>
+
+
+</html>

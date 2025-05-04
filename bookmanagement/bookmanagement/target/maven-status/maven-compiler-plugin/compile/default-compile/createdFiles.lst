@@ -1,5 +1,5 @@
-com\unibuc\bookmanagement\exception\ValidationExceptionHandler.class
 com\unibuc\bookmanagement\repositories\UserBookRepository.class
+com\unibuc\bookmanagement\config\SwaggerConfig.class
 com\unibuc\bookmanagement\repositories\ReviewRepository.class
 com\unibuc\bookmanagement\services\BookService.class
 com\unibuc\bookmanagement\junction_tables\UserBookId.class

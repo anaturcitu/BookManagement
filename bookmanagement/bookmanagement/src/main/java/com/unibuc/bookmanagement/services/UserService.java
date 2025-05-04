@@ -11,6 +11,16 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+//    private final PasswordEncoder passwordEncoder;
+
+//    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+//        this.userRepository = userRepository;
+//        this.passwordEncoder = passwordEncoder;
+//    }
+
+//    public boolean emailExists(String email) {
+//        return userRepository.existsByEmail(email);
+//    }
 
     public User createUser(User user) {
         return userRepository.save(user);
