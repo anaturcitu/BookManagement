@@ -16,21 +16,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        System.out.println("Trying to load user with email: " + email);
-//
-//        User user = userRepository.findByEmail(email)
-//                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
-//
-//        // Verifică parola (de obicei aceasta ar trebui să fie făcută automat de Spring Security)
-//        return org.springframework.security.core.userdetails.User
-//                .withUsername(user.getEmail())
-//                .password(user.getPassword()) // Parola criptată
-//                .roles("USER")
-//                .build();
-//    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("Trying to load user with username: " + username);
@@ -40,11 +25,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
-                .password(user.getPassword()) // trebuie să fie deja criptată cu BCrypt
-                .authorities(new ArrayList<>()) // fără roluri
+                .password(user.getPassword()) // parola criptata
+                .authorities("ROLE_" + user.getRole().toUpperCase()) // pt roluri
                 .build();
     }
-
 
 
 }

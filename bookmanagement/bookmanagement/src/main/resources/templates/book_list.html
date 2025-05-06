@@ -162,8 +162,7 @@
         </li>
     </ul>
 
-
-    <div class="div-buttons">
+    <div class="div-buttons" sec:authorize="hasRole('ADMIN')">
         <a class="add-button" th:href="@{/books/add}">Adaugă o carte</a>
     </div>
 

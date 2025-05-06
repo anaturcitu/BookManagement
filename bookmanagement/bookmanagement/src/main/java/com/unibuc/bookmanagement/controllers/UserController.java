@@ -25,14 +25,6 @@ public class UserController {
         return "login";
     }
 
-//    @PostMapping("/login")
-//    public String processLogin(@RequestParam String email, @RequestParam String password) {
-//        // Adaugă logica de procesare a autentificării
-//        System.out.println("Procesare login: " + email);
-//        return "redirect:/books";  // Redirecționare la pagina dorită după login
-//    }
-
-
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("registerRequest", new RegisterRequest());
@@ -58,4 +50,5 @@ public class UserController {
         userService.registerUser(request);
         return "redirect:/login";
     }
+
 }

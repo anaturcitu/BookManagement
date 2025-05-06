@@ -30,8 +30,10 @@ public class UserService {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole("user");
         userRepository.save(user);
     }
+
 
     public User createUser(User user) {
         return userRepository.save(user);
@@ -49,5 +51,10 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public boolean usernameExists(String username) {
+        // Folosim metoda din UserRepository pentru a verifica dacă un username există
+        return userRepository.existsByUsername(username);
     }
 }
