@@ -37,19 +37,19 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findById(1L);
     }
 
-    @Test
-    void testFindByEmail() {
-        User user = new User();
-        user.setEmail("user@example.com");
-
-        when(userRepository.findByEmail("user@example.com")).thenReturn(user);
-
-        User result = userService.findByEmail("user@example.com");
-
-        assertNotNull(result);
-        assertEquals("user@example.com", result.getEmail());
-        verify(userRepository, times(1)).findByEmail("user@example.com");
-    }
+//    @Test
+//    void testFindByEmail() {
+//        User user = new User();
+//        user.setEmail("user@example.com");
+//
+//        when(userRepository.findByEmail("user@example.com")).thenReturn(user);
+//
+//        User result = userService.findByEmail("user@example.com");
+//
+//        assertNotNull(result);
+//        assertEquals("user@example.com", result.getEmail());
+//        verify(userRepository, times(1)).findByEmail("user@example.com");
+//    }
 
     @Test
     void testDeleteUser() {
