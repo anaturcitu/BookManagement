@@ -3,7 +3,6 @@
 <head>
     <title>Detalii carte</title>
     <style>
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f5f5;
@@ -18,21 +17,62 @@
             text-align: center;
         }
 
+        .delete-button, .action-button {
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+
+        .delete-button {
+            background-color: #e74c3c;
+        }
+
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+
+        .action-button.view-reviews {
+            background-color: #3498db;
+        }
+
+        .action-button.view-reviews:hover {
+            background-color: #2980b9;
+        }
+
+        .action-button.add-review {
+            background-color: #2ecc71;
+        }
+
+        .action-button.add-review:hover {
+            background-color: #27ae60;
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 30px;
+        }
     </style>
 </head>
-    <body>
-        <h1 th:text="${book.title}">Titlu carte</h1>
-        <p><strong>Autor:</strong> <span th:text="${author.name}">Autor</span></p>
-        <p><strong>ISBN:</strong> <span th:text="${book.isbn}">ISBN</span> </p>
-        <p><strong>Descriere:</strong> <span th:text="${book.description}">Descriere</span> </p>
-    </body>
 
-<form th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="text-align: center; margin-top: 20px;">
-    <button type="submit"
-            style="padding: 10px 20px; background-color: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        Șterge cartea
-    </button>
-</form>
+<body>
+    <h1 th:text="${book.title}">Titlu carte</h1>
 
+    <p><strong>Autor:</strong> <span th:text="${author.name}">Autor</span></p>
+    <p><strong>ISBN:</strong> <span th:text="${book.isbn}">ISBN</span></p>
+    <p><strong>Descriere:</strong> <span th:text="${book.description}">Descriere</span></p>
 
+    <form th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="text-align: center; margin-top: 20px;">
+        <button type="submit" class="delete-button">Șterge cartea</button>
+    </form>
+
+    <div class="button-group">
+        <a th:href="@{/reviews/book/{id}(id=${book.id})}" class="action-button view-reviews">Vezi recenzii</a>
+        <a th:href="@{/reviews/add/{id}(id=${book.id})}" class="action-button add-review">Adaugă recenzie</a>
+    </div>
+
+</body>
 </html>

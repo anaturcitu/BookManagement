@@ -1,11 +1,15 @@
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\BookmanagementApplication.java
+C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\config\SecurityConfig.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\config\SwaggerConfig.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\controllers\AuthorController.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\controllers\BookController.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\controllers\GenreController.java
+C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\controllers\HomeController.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\controllers\ReviewController.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\controllers\UserBookController.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\controllers\UserController.java
+C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\dto\LoginRequest.java
+C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\dto\RegisterRequest.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\exception\ValidationExceptionHandler.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\junction_tables\UserBookId.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\models\Author.java
@@ -22,6 +26,7 @@ C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\repositories\UserRepository.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\services\AuthorService.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\services\BookService.java
+C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\services\CustomUserDetailsService.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\services\GenreService.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\services\ReviewService.java
 C:\Users\Ana\Desktop\awbd\BookManagement\bookmanagement\bookmanagement\src\main\java\com\unibuc\bookmanagement\services\UserBookService.java

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Lista cărți</title>
     <style>
@@ -90,18 +92,61 @@
             background-color: #27ae60;
         }
 
+        .user-bar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+
+        .logout-bar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+        }
+
+        .logout-bar button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-bar button:hover {
+            background-color: #c0392b;
+        }
 
     </style>
 </head>
 
 <body>
 
-    <div class="header-buttons">
+    <div class="header-buttons" sec:authorize="!isAuthenticated()">
         <a th:href="@{/users/login}">Login</a>
         <a th:href="@{/users/register}">Register</a>
     </div>
 
-<h1>Toate cărțile</h1>
+    <div class="logout-bar" sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+
+
+    <h1>Toate cărțile</h1>
 
     <form th:action="@{/books/find}" method="get" style="margin-bottom: 30px; text-align: center;">
         <input type="text" name="query" placeholder="Caută după titlu..." style="padding: 10px; width: 60%; border-radius: 5px; border: 1px solid #ccc;">
