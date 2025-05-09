@@ -1,0 +1,29 @@
+1) constrangeri pentru CASCADE intre USERS - USERBOOKS si BOOKS - USERBOOKS (adica sa se stearga si din tabela USERBOOKS daca se sterge utilizatorul sau cartea respectiva)
+
+ALTER TABLE userbooks 
+ADD CONSTRAINT fk_userbooks_user
+FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+ALTER TABLE userbooks 
+ADD CONSTRAINT fk_userbooks_book
+FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE;
+
+
+2) constrangeri pentru CASCADE intre USERS - REVIEWS si BOOKS - REVIEWS (adica sa se stearga toate reviewurile asociate daca se sterge utilizatorul sau cartea)
+
+ALTER TABLE reviews
+ADD CONSTRAINT fk_reviews_user FOREIGN KEY (user_id) 
+REFERENCES users (id) ON DELETE CASCADE;
+
+ALTER TABLE reviews
+ADD CONSTRAINT fk_reviews_book FOREIGN KEY (book_id) 
+REFERENCES books (id) ON DELETE CASCADE;
+
+
+3) constrangeri pentru CASCADE intre BOOKS - BOOKGENRES(adica sa se sterga si din tabela BOOKGENRES daca se sterge cartea respectiva)
+
+ALTER TABLE bookgenres
+ADD CONSTRAINT fk_bookgenres_book FOREIGN KEY (book_id) 
+REFERENCES books (id) ON DELETE CASCADE;
+
+

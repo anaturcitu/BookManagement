@@ -1,0 +1,64 @@
+-- 1 pentru adaugare in tabela USERS:
+{
+  "username": "Ana Popescu",
+  "email": "ana_popescu@example.com",
+  "password": "Parola123**"
+}
+
+-- 2 pentru adaugare in tabela AUTHORS:
+{
+  "name": "Ana Popescu",
+  "birth_date": "2001-12-03"
+}
+
+-- 3 pentru adaugare in tabela GENRES:
+{
+  "name": "Poetry"
+}
+
+-- 4 pentru adaugare in tabela BOOKS:
+{
+  "title": "Dune2",
+  "description": "A science fiction novel",
+  "isbn": "9780441172719",
+  "authorId": 12,
+  "genres": [
+    {
+      "id": 4
+    },
+    {
+      "id": 17
+    }
+  ]
+}
+
+-- 5 pentru adaugare in tabela USERBOOKS:
+{
+  "id": {
+    "userId": 24,
+    "bookId": 20
+  },
+  "book": {
+    "id": 20
+  },
+  "user": {
+    "id": 24
+  },
+  "status": "Reading"
+}
+
+-- 6 pentru adaugare in tabela REVIEWS:
+{
+  "content": "Cartea este buna",
+  "rating": 4,
+  "userId": 22,
+  "bookId": 23,
+  "user":
+    {
+        "id": 22
+    },
+    "book":
+    {
+        "id": 23
+    }
+}

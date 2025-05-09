@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Adaugă Carte</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 40px auto;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        p {
+            color: red;
+            font-size: 13px;
+            margin: 5px 0 0 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Adaugă o carte</h1>
+
+<form th:action="@{/books/add}" th:object="${book}" method="post">
+  <div class="form-group">
+    <label>Titlu:</label>
+    <input type="text" th:field="*{title}" />
+    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+  </div>
+
+  <div class="form-group">
+    <label>Descriere:</label>
+    <textarea th:field="*{description}"></textarea>
+    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+  </div>
+
+  <div class="form-group">
+    <label>ISBN:</label>
+    <input type="text" th:field="*{isbn}" />
+    <p th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></p>
+  </div>
+
+  <div class="form-group">
+    <label>ID Autor:</label>
+    <input type="number" th:field="*{authorId}" />
+    <p th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"></p>
+  </div>
+
+  <button type="submit">Salvează</button>
+</form>
+
+</body>
+</html>
