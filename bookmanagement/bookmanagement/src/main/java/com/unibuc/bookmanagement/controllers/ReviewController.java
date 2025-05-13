@@ -5,6 +5,7 @@ import com.unibuc.bookmanagement.models.Review;
 import com.unibuc.bookmanagement.models.User;
 import com.unibuc.bookmanagement.services.BookService;
 import com.unibuc.bookmanagement.services.ReviewService;
+import com.unibuc.bookmanagement.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ import java.util.List;
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private BookService bookService;
@@ -48,21 +52,43 @@ public class ReviewController {
         return "add-review";
     }
 
+//    @PostMapping("/add")
+//    public String addReview(@RequestParam Long bookId, @RequestParam String content, @RequestParam Integer rating, Authentication authentication) {
+//        User user = (User) authentication.getPrincipal(); // obtine utilizatorul logat din Authentication
+//
+//        // creeaza o instanta de Review:
+//        Review review = new Review();
+//        review.setContent(content);
+//        review.setRating(rating);
+//        review.setBook(bookService.getBookById(bookId).orElseThrow(() -> new RuntimeException("Cartea nu există")));
+//        review.setUser(user);  // seteaza utilizatorul care a lasat recenzia
+//
+//        // salveaza recenzia in baza de date:
+//        reviewService.createReview(review);
+//
+//        return "redirect:/reviews/book/" + bookId;
+//    }
+
     @PostMapping("/add")
     public String addReview(@RequestParam Long bookId, @RequestParam String content, @RequestParam Integer rating, Authentication authentication) {
-        User user = (User) authentication.getPrincipal(); // obtine utilizatorul logat din Authentication
+        // obtine utilizatorul autentificat din SecurityContext
+        org.springframework.security.core.userdetails.User springUser = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 
-        // creeaza o instanta de Review:
+        User user = userService.findByUsername(springUser.getUsername())
+                .orElseThrow(() -> new RuntimeException("Utilizatorul nu a fost găsit"));
+
+        // creeaza recenzia:
         Review review = new Review();
         review.setContent(content);
         review.setRating(rating);
         review.setBook(bookService.getBookById(bookId).orElseThrow(() -> new RuntimeException("Cartea nu există")));
-        review.setUser(user);  // seteaza utilizatorul care a lasat recenzia
+        review.setUser(user);
 
         // salveaza recenzia in baza de date:
         reviewService.createReview(review);
 
         return "redirect:/reviews/book/" + bookId;
     }
+
 
 }

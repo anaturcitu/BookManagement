@@ -57,4 +57,8 @@ public class UserService {
         // Folosim metoda din UserRepository pentru a verifica dacă un username există
         return userRepository.existsByUsername(username);
     }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
