@@ -63,7 +63,9 @@
 <body>
     <h1 th:text="${book.title}">Titlu carte</h1>
 
-    <p><strong>Autor:</strong> <span th:text="${author.name}">Autor</span></p>
+<!--    <p><strong>Autor:</strong> <span th:text="${author.name}">Autor</span></p>-->
+    <p><strong>Autor:</strong> <span th:text="${book.authorName}">Autor</span></p>
+
     <p><strong>ISBN:</strong> <span th:text="${book.isbn}">ISBN</span></p>
     <p><strong>Descriere:</strong> <span th:text="${book.description}">Descriere</span></p>
 

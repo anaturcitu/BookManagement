@@ -1,5 +1,6 @@
 package com.unibuc.bookmanagement.controllers;
 
+import com.unibuc.bookmanagement.dto.BookDTO;
 import com.unibuc.bookmanagement.models.Author;
 import com.unibuc.bookmanagement.models.Book;
 import com.unibuc.bookmanagement.services.AuthorService;
@@ -25,20 +26,29 @@ public class BookController {
     @Autowired
     private AuthorService authorService;
 
-
-    @GetMapping("/{id}") // afiseaza detaliile cartii (ma duce la pagina html book-details)
+    @GetMapping("/{id}")
     public String bookDetails(@PathVariable Long id, Model model) {
-        Optional<Book> book = bookService.getBookById(id);
-        if (book.isPresent()) {
-            Book b = book.get();
-            Author author = authorService.getAuthorById(b.getAuthorId()).orElse(null);
-            model.addAttribute("book", b);
-            model.addAttribute("author", author);
+        Optional<Book> bookOpt = bookService.getBookById(id);
+        if (bookOpt.isPresent()) {
+            Book book = bookOpt.get();
+            Author author = authorService.getAuthorById(book.getAuthorId()).orElse(null);
+
+            BookDTO bookDTO = new BookDTO();
+            bookDTO.setId(book.getId());
+            bookDTO.setTitle(book.getTitle());
+            bookDTO.setDescription(book.getDescription());
+            bookDTO.setIsbn(book.getIsbn());
+            if (author != null) {
+                bookDTO.setAuthorName(author.getName());
+            }
+
+            model.addAttribute("book", bookDTO);
             return "book-details";
         } else {
             return "redirect:/books";
         }
     }
+
 
     @GetMapping("/find")
     public String getBookByTitle(@RequestParam("query") String title, RedirectAttributes redirectAttributes) {
@@ -60,7 +70,7 @@ public class BookController {
 
     @GetMapping("/add")
     public String showAddBookForm(Model model) {
-        model.addAttribute("book", new Book());
+        model.addAttribute("book", new BookDTO());
         return "add_book";
     }
 
@@ -72,7 +82,6 @@ public class BookController {
         bookService.createBook(book);
         return "redirect:/books";
     }
-
 
     @PostMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {

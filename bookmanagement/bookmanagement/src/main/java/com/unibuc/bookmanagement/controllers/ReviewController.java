@@ -1,5 +1,6 @@
 package com.unibuc.bookmanagement.controllers;
 
+import com.unibuc.bookmanagement.dto.ReviewDTO;
 import com.unibuc.bookmanagement.models.Book;
 import com.unibuc.bookmanagement.models.Review;
 import com.unibuc.bookmanagement.models.User;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,28 +50,44 @@ public class ReviewController {
         Book book = bookService.getBookById(id)
                 .orElseThrow(() -> new RuntimeException("Cartea nu există"));
 
+        ReviewDTO reviewDTO = new ReviewDTO();
+        reviewDTO.setBookId(id);  // foarte important!
+
         model.addAttribute("book", book);
+        model.addAttribute("reviewDTO", reviewDTO);
         return "add-review";
     }
 
     @PostMapping("/add")
-    public String addReview(@RequestParam Long bookId, @RequestParam String content, @RequestParam Integer rating, Authentication authentication) {
-        // obtine utilizatorul autentificat din SecurityContext
+    public String addReview(@Valid @ModelAttribute("reviewDTO") ReviewDTO reviewDTO,
+                            BindingResult bindingResult,
+                            Authentication authentication,
+                            Model model) {
+        if (bindingResult.hasErrors()) {
+            // In caz de erori, refacem datele pentru view
+            Book book = bookService.getBookById(reviewDTO.getBookId())
+                    .orElseThrow(() -> new RuntimeException("Cartea nu există"));
+            model.addAttribute("book", book);
+            return "add-review"; // revenim la formular cu erorile afisate
+        }
+
         org.springframework.security.core.userdetails.User springUser = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 
         User user = userService.findByUsername(springUser.getUsername())
                 .orElseThrow(() -> new RuntimeException("Utilizatorul nu a fost găsit"));
 
-        // creeaza recenzia:
+        Book book = bookService.getBookById(reviewDTO.getBookId())
+                .orElseThrow(() -> new RuntimeException("Cartea nu există"));
+
         Review review = new Review();
-        review.setContent(content);
-        review.setRating(rating);
-        review.setBook(bookService.getBookById(bookId).orElseThrow(() -> new RuntimeException("Cartea nu există")));
+        review.setContent(reviewDTO.getContent());
+        review.setRating(reviewDTO.getRating());
+        review.setBook(book);
         review.setUser(user);
 
-        // salveaza recenzia in baza de date:
         reviewService.createReview(review);
 
-        return "redirect:/reviews/book/" + bookId;
+        return "redirect:/reviews/book/" + reviewDTO.getBookId();
     }
+
 }
