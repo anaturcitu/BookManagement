@@ -56,13 +56,14 @@
       <h2>Register</h2>
       <form th:action="@{/users/register}" method="post" th:object="${registerRequest}">
           <input type="text" th:field="*{username}" placeholder="Username"/>
-          <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+          <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red; font-size: 0.9em;"></div>
 
           <input type="text" th:field="*{email}" placeholder="Email"/>
-          <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+          <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red; font-size: 0.9em;"></div>
 
           <input type="password" th:field="*{password}" placeholder="Password"/>
-          <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+          <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red; font-size: 0.9em;"></div>
+
 
           <input type="password" th:field="*{confirmPassword}" placeholder="Confirm Password"/>
           <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>

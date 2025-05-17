@@ -67,8 +67,9 @@
       </form>
 
 
-      <p th:if="${param.error}">Email sau parolă incorectă!</p>
-      <p th:if="${param.logout}">Te-ai deconectat cu succes!</p>
+      <p th:if="${param.error}" style="color: red; font-weight: bold;">Email sau parolă incorectă!</p>
+      <p th:if="${param.logout}" style="color: green; font-weight: bold;">Te-ai deconectat cu succes!</p>
+
   </div>
 
 </body>

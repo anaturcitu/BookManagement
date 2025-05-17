@@ -1,7 +1,14 @@
 package com.unibuc.bookmanagement.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class LoginRequest {
+
+    @Email(message = "Email invalid")
+    @NotBlank(message = "Emailul este obligatoriu")
     private String email;
+    @NotBlank(message = "Parola este obligatorie")
     private String password;
 
     public LoginRequest() {}

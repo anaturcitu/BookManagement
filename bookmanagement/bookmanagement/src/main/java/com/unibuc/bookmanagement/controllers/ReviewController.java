@@ -52,23 +52,6 @@ public class ReviewController {
         return "add-review";
     }
 
-//    @PostMapping("/add")
-//    public String addReview(@RequestParam Long bookId, @RequestParam String content, @RequestParam Integer rating, Authentication authentication) {
-//        User user = (User) authentication.getPrincipal(); // obtine utilizatorul logat din Authentication
-//
-//        // creeaza o instanta de Review:
-//        Review review = new Review();
-//        review.setContent(content);
-//        review.setRating(rating);
-//        review.setBook(bookService.getBookById(bookId).orElseThrow(() -> new RuntimeException("Cartea nu există")));
-//        review.setUser(user);  // seteaza utilizatorul care a lasat recenzia
-//
-//        // salveaza recenzia in baza de date:
-//        reviewService.createReview(review);
-//
-//        return "redirect:/reviews/book/" + bookId;
-//    }
-
     @PostMapping("/add")
     public String addReview(@RequestParam Long bookId, @RequestParam String content, @RequestParam Integer rating, Authentication authentication) {
         // obtine utilizatorul autentificat din SecurityContext
@@ -89,6 +72,4 @@ public class ReviewController {
 
         return "redirect:/reviews/book/" + bookId;
     }
-
-
 }
