@@ -7,6 +7,10 @@ import com.unibuc.bookmanagement.services.AuthorService;
 import com.unibuc.bookmanagement.services.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,11 +65,28 @@ public class BookController {
         }
     }
 
+//    @GetMapping
+//    public String getAllBooks(Model model) {
+//        List<Book> books = bookService.getAllBooks();
+//        model.addAttribute("books", books);
+//        return "book_list"; // va cauta book_list.html in /resources/templates
+//    }
+
+    // pentru paginare:
     @GetMapping
-    public String getAllBooks(Model model) {
-        List<Book> books = bookService.getAllBooks();
-        model.addAttribute("books", books);
-        return "book_list"; // va cauta book_list.html in /resources/templates
+    public String getAllBooks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "title") String sort,
+            @RequestParam(defaultValue = "asc") String dir,
+            Model model
+    ) {
+        Sort.Direction direction = dir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort));
+        Page<Book> bookPage = bookService.getBooks(pageable);
+
+        model.addAttribute("bookPage", bookPage);
+        return "book_list";
     }
 
     @GetMapping("/add")

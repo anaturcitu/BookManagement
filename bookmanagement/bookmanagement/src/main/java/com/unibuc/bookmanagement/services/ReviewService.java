@@ -3,6 +3,8 @@ package com.unibuc.bookmanagement.services;
 import com.unibuc.bookmanagement.models.Review;
 import com.unibuc.bookmanagement.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,4 +46,10 @@ public class ReviewService {
     public void deleteReview(Long id) {
         reviewRepository.deleteById(id);
     }
+
+    // pentru paginare:
+    public Page<Review> getPaginatedReviewsByBookId(Long bookId, Pageable pageable) {
+        return reviewRepository.findByBookId(bookId, pageable);
+    }
+
 }

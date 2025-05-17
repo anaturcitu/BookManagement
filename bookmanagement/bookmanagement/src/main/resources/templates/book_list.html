@@ -128,6 +128,24 @@
             background-color: #c0392b;
         }
 
+        .pagination-button {
+            text-decoration: none;
+            background-color: #ffffff;
+            color: #2c3e50;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-weight: 500;
+            margin: 0 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .pagination-button:hover {
+            background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+
     </style>
 </head>
 
@@ -144,8 +162,6 @@
         </form>
     </div>
 
-
-
     <h1>Toate cărțile</h1>
 
     <form th:action="@{/books/find}" method="get" style="margin-bottom: 30px; text-align: center;">
@@ -155,16 +171,30 @@
         </button>
     </form>
 
-
     <ul>
-        <li th:each="book : ${books}">
+        <li th:each="book : ${bookPage.content}">
             <a class="book_link" th:href="@{/books/{id}(id=${book.id})}" th:text="${book.title}">Titlu carte</a>
         </li>
     </ul>
 
-    <div class="div-buttons" sec:authorize="hasRole('ADMIN')">
-        <a class="add-button" th:href="@{/books/add}">Adaugă o carte</a>
+    <!-- PAGINARE -->
+    <div style="text-align: center; margin-top: 30px;">
+        <div>
+            <span th:text="${bookPage.number + 1} + ' din ' + ${bookPage.totalPages}">1 din 1</span>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a th:if="${bookPage.hasPrevious()}"
+               th:href="@{/books(page=${bookPage.number - 1}, size=${bookPage.size})}"
+               class="pagination-button">Pagina anterioară</a>
+
+            <a th:if="${bookPage.hasNext()}"
+               th:href="@{/books(page=${bookPage.number + 1}, size=${bookPage.size})}"
+               class="pagination-button">Pagina următoare</a>
+        </div>
     </div>
 
+
 </body>
+
 </html>

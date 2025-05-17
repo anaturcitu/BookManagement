@@ -74,30 +74,67 @@
         ul {
             list-style-type: none;
         }
+
+        .pagination-button {
+            text-decoration: none;
+            background-color: #ffffff;
+            color: #2c3e50;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-weight: 500;
+            margin: 0 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .pagination-button:hover {
+            background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+
     </style>
 </head>
 <body>
 
-<h1>Recenzii <span th:text="${book.title}">Titlu carte</span></h1>
+    <h1>Recenzii <span th:text="${book.title}">Titlu carte</span></h1>
 
-<div th:if="${#lists.isEmpty(reviews)}" class="no-reviews">
-    <p>Nu există recenzii pentru această carte.</p>
-</div>
+    <div th:if="${#lists.isEmpty(reviews)}" class="no-reviews">
+        <p>Nu există recenzii pentru această carte.</p>
+    </div>
 
-<div th:if="${!#lists.isEmpty(reviews)}">
-    <ul>
-        <li th:each="review : ${reviews}">
-            <div class="review-card">
-                <p><strong>Rating:</strong> <span th:text="${review.rating}" class="rating"></span>/5</p>
-                <p><strong>Comentariu:</strong> <span th:text="${review.content}"></span></p>
-                <p><strong>Utilizator:</strong> <span th:text="${review.user.username}">Anonim</span></p>
-                <p><small><strong>Data:</strong> <span th:text="${#temporals.format(review.createdAt, 'dd MMM yyyy HH:mm')}"></span></small></p>
-            </div>
-        </li>
-    </ul>
-</div>
+    <div th:if="${!#lists.isEmpty(reviews)}">
+        <ul>
+            <li th:each="review : ${reviews}">
+                <div class="review-card">
+                    <p><strong>Rating:</strong> <span th:text="${review.rating}" class="rating"></span>/5</p>
+                    <p><strong>Comentariu:</strong> <span th:text="${review.content}"></span></p>
+                    <p><strong>Utilizator:</strong> <span th:text="${review.user.username}">Anonim</span></p>
+                    <p><small><strong>Data:</strong> <span th:text="${#temporals.format(review.createdAt, 'dd MMM yyyy HH:mm')}"></span></small></p>
+                </div>
+            </li>
+        </ul>
+    </div>
 
-<a th:href="@{/books}" class="back-link">Înapoi la lista de cărți</a>
+    <a th:href="@{/books}" class="back-link">Înapoi la lista de cărți</a>
+
+    <!-- PAGINARE -->
+    <div style="text-align: center; margin-top: 30px;" th:if="${reviewPage.totalPages > 1}">
+        <div>
+            <span th:text="${reviewPage.number + 1} + ' din ' + ${reviewPage.totalPages}">1 din 1</span>
+        </div>
+
+        <div style="margin: 20px 0 40px 0;">
+            <a th:if="${reviewPage.hasPrevious()}"
+               th:href="@{/reviews/book/{bookId}(bookId=${book.id}, page=${reviewPage.number - 1}, size=${reviewPage.size})}"
+               class="pagination-button">Pagina anterioară</a>
+
+            <a th:if="${reviewPage.hasNext()}"
+               th:href="@{/reviews/book/{bookId}(bookId=${book.id}, page=${reviewPage.number + 1}, size=${reviewPage.size})}"
+               class="pagination-button">Pagina următoare</a>
+        </div>
+    </div>
+
 
 </body>
 </html>

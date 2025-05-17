@@ -9,6 +9,9 @@ import com.unibuc.bookmanagement.services.ReviewService;
 import com.unibuc.bookmanagement.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -35,13 +38,32 @@ public class ReviewController {
         return reviewService.getAllReviews();
     }
 
+//    @GetMapping("/book/{id}")
+//    public String viewReviewsForBook(@PathVariable Long id, Model model) {
+//        Book book = bookService.getBookById(id).orElseThrow(() -> new RuntimeException("Cartea nu există"));
+//        List<Review> reviews = reviewService.getReviewsByBookId(id);
+//
+//        model.addAttribute("book", book);
+//        model.addAttribute("reviews", reviews);
+//        return "view-reviews";
+//    }
+
     @GetMapping("/book/{id}")
-    public String viewReviewsForBook(@PathVariable Long id, Model model) {
-        Book book = bookService.getBookById(id).orElseThrow(() -> new RuntimeException("Cartea nu există"));
-        List<Review> reviews = reviewService.getReviewsByBookId(id);
+    public String viewReviewsForBook(@PathVariable Long id,
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "5") int size,
+                                     Model model) {
+
+        Book book = bookService.getBookById(id)
+                .orElseThrow(() -> new RuntimeException("Cartea nu există"));
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Review> reviewPage = reviewService.getPaginatedReviewsByBookId(id, pageable);
 
         model.addAttribute("book", book);
-        model.addAttribute("reviews", reviews);
+        model.addAttribute("reviews", reviewPage.getContent());
+        model.addAttribute("reviewPage", reviewPage);
+
         return "view-reviews";
     }
 

@@ -3,6 +3,8 @@ package com.unibuc.bookmanagement.services;
 import com.unibuc.bookmanagement.models.Book;
 import com.unibuc.bookmanagement.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,4 +32,10 @@ public class BookService {
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
     }
+
+//    pentru paginare:
+    public Page<Book> getBooks(Pageable pageable) {
+        return bookRepository.findAll(pageable);
+    }
+
 }
