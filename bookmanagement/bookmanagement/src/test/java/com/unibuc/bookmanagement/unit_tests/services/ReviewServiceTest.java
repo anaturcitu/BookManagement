@@ -1,5 +1,6 @@
 package com.unibuc.bookmanagement.unit_tests.services;
 
+import com.unibuc.bookmanagement.models.Book;
 import com.unibuc.bookmanagement.models.Review;
 import com.unibuc.bookmanagement.repositories.ReviewRepository;
 import com.unibuc.bookmanagement.services.ReviewService;
@@ -88,17 +89,23 @@ public class ReviewServiceTest {
         Review review = new Review();
         review.setContent("Great book");
         review.setRating(5);
-        when(reviewRepository.save(any(Review.class))).thenAnswer(i -> {
-            Review savedReview = i.getArgument(0);
-            savedReview.setId(1L);
-            return savedReview;
+
+        Book mockBook = new Book();
+        mockBook.setId(42L);
+        review.setBook(mockBook);
+
+        when(reviewRepository.save(any(Review.class))).thenAnswer(invocation -> {
+            Review input = invocation.getArgument(0);
+            input.setId(1L);
+            return input;
         });
 
         Review result = reviewService.createReview(review);
 
         assertNotNull(result.getCreatedAt());
         assertEquals(1L, result.getId());
-        verify(reviewRepository, times(1)).save(review);
+        assertEquals("Great book", result.getContent());
+        verify(reviewRepository, times(1)).save(any(Review.class));
     }
 
     @Test

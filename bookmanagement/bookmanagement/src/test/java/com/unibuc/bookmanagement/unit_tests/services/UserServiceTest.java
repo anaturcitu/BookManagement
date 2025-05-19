@@ -37,19 +37,54 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findById(1L);
     }
 
-//    @Test
-//    void testFindByEmail() {
-//        User user = new User();
-//        user.setEmail("user@example.com");
-//
-//        when(userRepository.findByEmail("user@example.com")).thenReturn(user);
-//
-//        User result = userService.findByEmail("user@example.com");
-//
-//        assertNotNull(result);
-//        assertEquals("user@example.com", result.getEmail());
-//        verify(userRepository, times(1)).findByEmail("user@example.com");
-//    }
+   @Test
+   void testFindByEmail() {
+       User user = new User();
+       user.setEmail("user@example.com");
+
+        when(userRepository.findByEmail("user@example.com")).thenReturn(Optional.of(user));
+
+       User result = userService.findByEmail("user@example.com");
+
+       assertNotNull(result);
+       assertEquals("user@example.com", result.getEmail());
+       verify(userRepository, times(1)).findByEmail("user@example.com");
+   }
+
+   @Test
+    void testEmailExists() {
+        when(userRepository.existsByEmail("email@example.com")).thenReturn(true);
+
+        boolean result = userService.emailExists("email@example.com");
+
+        assertTrue(result);
+        verify(userRepository, times(1)).existsByEmail("email@example.com");
+    }
+
+
+    @Test
+    void testFindByUsername() {
+        User user = new User();
+        user.setUsername("john_doe");
+
+        when(userRepository.findByUsername("john_doe")).thenReturn(Optional.of(user));
+
+        Optional<User> result = userService.findByUsername("john_doe");
+
+        assertTrue(result.isPresent());
+        assertEquals("john_doe", result.get().getUsername());
+        verify(userRepository, times(1)).findByUsername("john_doe");
+    }
+
+    @Test
+    void testUsernameExists() {
+        when(userRepository.existsByUsername("john_doe")).thenReturn(true);
+
+        boolean result = userService.usernameExists("john_doe");
+
+        assertTrue(result);
+        verify(userRepository, times(1)).existsByUsername("john_doe");
+    }
 
     @Test
     void testDeleteUser() {

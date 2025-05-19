@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -63,4 +64,15 @@ public class GenreServiceTest {
         assertEquals("Mystery", result.getName());
         verify(genreRepository, times(1)).findById(1L);
     }
+
+        @Test
+    void testGetGenreById_NotFound() {
+        when(genreRepository.findById(99L)).thenReturn(Optional.empty());
+
+        Genre result = genreService.getGenreById(99L);
+
+        assertEquals(null, result);
+        verify(genreRepository, times(1)).findById(99L);
+    }
+
 }

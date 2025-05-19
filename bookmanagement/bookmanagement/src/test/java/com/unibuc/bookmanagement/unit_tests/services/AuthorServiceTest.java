@@ -40,6 +40,20 @@ public class AuthorServiceTest {
     }
 
     @Test
+    void testGetAuthorByName() {
+        Author author = new Author();
+        author.setName("Maria Ionescu");
+
+        when(authorRepository.findByName("Maria Ionescu")).thenReturn(Optional.of(author));
+
+        Optional<Author> result = authorService.getAuthorByName("Maria Ionescu");
+
+        assertTrue(result.isPresent());
+        assertEquals("Maria Ionescu", result.get().getName());
+        verify(authorRepository, times(1)).findByName("Maria Ionescu");
+    }
+
+    @Test
     void testGetAuthorById() {
         Author author = new Author();
         author.setId(1L);
