@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recenzii - [[${book.title}]]</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+            font-size: 2rem;
+        }
+
+        .review-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .review-card p {
+            margin: 10px 0;
+        }
+
+        .review-card strong {
+            color: #555;
+        }
+
+        .review-card .rating {
+            color: #FFD700;
+        }
+
+        .review-card small {
+            color: #888;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .no-reviews {
+            text-align: center;
+            color: #888;
+            font-size: 1.2rem;
+        }
+
+        .review-card hr {
+            border: 0;
+            border-top: 1px solid #eee;
+            margin: 15px 0;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .pagination-button {
+            text-decoration: none;
+            background-color: #ffffff;
+            color: #2c3e50;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-weight: 500;
+            margin: 0 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .pagination-button:hover {
+            background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Recenzii <span th:text="${book.title}">Titlu carte</span></h1>
+
+    <div th:if="${#lists.isEmpty(reviews)}" class="no-reviews">
+        <p>Nu există recenzii pentru această carte.</p>
+    </div>
+
+    <div th:if="${!#lists.isEmpty(reviews)}">
+        <ul>
+            <li th:each="review : ${reviews}">
+                <div class="review-card">
+                    <p><strong>Rating:</strong> <span th:text="${review.rating}" class="rating"></span>/5</p>
+                    <p><strong>Comentariu:</strong> <span th:text="${review.content}"></span></p>
+                    <p><strong>Utilizator:</strong> <span th:text="${review.user.username}">Anonim</span></p>
+                    <p><small><strong>Data:</strong> <span th:text="${#temporals.format(review.createdAt, 'dd MMM yyyy HH:mm')}"></span></small></p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <a th:href="@{/books}" class="back-link">Înapoi la lista de cărți</a>
+
+    <!-- PAGINARE -->
+    <div style="text-align: center; margin-top: 30px;" th:if="${reviewPage.totalPages > 1}">
+        <div>
+            <span th:text="${reviewPage.number + 1} + ' din ' + ${reviewPage.totalPages}">1 din 1</span>
+        </div>
+
+        <div style="margin: 20px 0 40px 0;">
+            <a th:if="${reviewPage.hasPrevious()}"
+               th:href="@{/reviews/book/{bookId}(bookId=${book.id}, page=${reviewPage.number - 1}, size=${reviewPage.size})}"
+               class="pagination-button">Pagina anterioară</a>
+
+            <a th:if="${reviewPage.hasNext()}"
+               th:href="@{/reviews/book/{bookId}(bookId=${book.id}, page=${reviewPage.number + 1}, size=${reviewPage.size})}"
+               class="pagination-button">Pagina următoare</a>
+        </div>
+    </div>
+
+
+</body>
+</html>

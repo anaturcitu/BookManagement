@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Lista cărți</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 40px auto;
+            max-width: 500px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 18px;
+            color: #333;
+        }
+
+        li:hover {
+            background-color: #eef6ff;
+        }
+
+        .add-button {
+            text-decoration: none;
+            background-color: #3498db;
+            transition: background-color 0.3s;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            width: 50%;
+            margin-left: 20px;
+            margin-right: 25px;
+        }
+
+        .add-button:hover {
+            background-color: #2980b9;
+        }
+
+        .div-buttons {
+            display: flex;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .book_link {
+            color: black;
+            text-decoration: none;
+        }
+
+        .header-buttons {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        }
+
+        .header-buttons a {
+            text-decoration: none;
+            background-color: #2ecc71;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-left: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .header-buttons a:hover {
+            background-color: #27ae60;
+        }
+
+        .user-bar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+
+        .logout-bar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+        }
+
+        .logout-bar button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-bar button:hover {
+            background-color: #c0392b;
+        }
+
+        .pagination-button {
+            text-decoration: none;
+            background-color: #ffffff;
+            color: #2c3e50;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-weight: 500;
+            margin: 0 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .pagination-button:hover {
+            background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="header-buttons" sec:authorize="!isAuthenticated()">
+        <a th:href="@{/users/login}">Login</a>
+        <a th:href="@{/users/register}">Register</a>
+    </div>
+
+    <div class="logout-bar" sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <h1>Toate cărțile</h1>
+
+    <form th:action="@{/books/find}" method="get" style="margin-bottom: 30px; text-align: center;">
+        <input type="text" name="query" placeholder="Caută după titlu..." style="padding: 10px; width: 60%; border-radius: 5px; border: 1px solid #ccc;">
+        <button type="submit" style="padding: 10px 20px; border: none; background-color: #3498db; color: white; border-radius: 5px; cursor: pointer;">
+            Caută
+        </button>
+    </form>
+
+    <ul>
+        <li th:each="book : ${bookPage.content}">
+            <a class="book_link" th:href="@{/books/{id}(id=${book.id})}" th:text="${book.title}">Titlu carte</a>
+        </li>
+    </ul>
+
+    <!-- PAGINARE -->
+    <div style="text-align: center; margin-top: 30px;">
+        <div>
+            <span th:text="${bookPage.number + 1} + ' din ' + ${bookPage.totalPages}">1 din 1</span>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a th:if="${bookPage.hasPrevious()}"
+               th:href="@{/books(page=${bookPage.number - 1}, size=${bookPage.size})}"
+               class="pagination-button">Pagina anterioară</a>
+
+            <a th:if="${bookPage.hasNext()}"
+               th:href="@{/books(page=${bookPage.number + 1}, size=${bookPage.size})}"
+               class="pagination-button">Pagina următoare</a>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
