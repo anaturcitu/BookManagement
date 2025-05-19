@@ -1,110 +1,77 @@
 package com.unibuc.bookmanagement.unit_tests.endpoints;
 
-import com.unibuc.bookmanagement.controllers.ReviewController;
-import com.unibuc.bookmanagement.models.Review;
-import com.unibuc.bookmanagement.services.ReviewService;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
+
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.unibuc.bookmanagement.controllers.ReviewController;
+import com.unibuc.bookmanagement.models.Book;
+import com.unibuc.bookmanagement.models.Review;
+import com.unibuc.bookmanagement.models.User;
+import com.unibuc.bookmanagement.services.BookService;
+import com.unibuc.bookmanagement.services.ReviewService;
+import com.unibuc.bookmanagement.services.UserService;
 
 
-@ExtendWith(MockitoExtension.class)
+@AutoConfigureMockMvc(addFilters = false)
+@WebMvcTest(ReviewController.class)
 public class ReviewControllerTest {
-    @Mock
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
     private ReviewService reviewService;
 
-    @InjectMocks
-    private ReviewController reviewController;
+    @MockBean
+    private BookService bookService;
+
+    @MockBean
+    private UserService userService;  // <== Adaugă asta!
 
     @Test
-    public void testGetAllReviews() {
-        List<Review> reviews = Arrays.asList(new Review(), new Review());
-        when(reviewService.getAllReviews()).thenReturn(reviews);
+public void testViewReviewsForBook() throws Exception {
+    Book book = new Book();
+    book.setId(1L);
 
-        List<Review> result = reviewController.getAllReviews();
+    User user = new User();
+    user.setUsername("testuser");
 
-        assertEquals(2, result.size());
-        verify(reviewService, times(1)).getAllReviews();
-    }
+    Review review = new Review();
+    review.setId(1L);
+    review.setBook(book);
+    review.setUser(user);  // <== asta trebuie adăugat
 
-    @Test
-    public void testGetReviewById() {
-        Review review = new Review();
-        review.setId(1L);
-        when(reviewService.getReviewById(1L)).thenReturn(review);
+    when(bookService.getBookById(1L)).thenReturn(Optional.of(book));
+    when(reviewService.getPaginatedReviewsByBookId(anyLong(), any()))
+        .thenReturn(new PageImpl<>(List.of(review), PageRequest.of(0, 5), 1));
 
-        ResponseEntity<Review> response = reviewController.getReviewById(1L);
-
-        assertEquals(1L, response.getBody().getId());
-        verify(reviewService, times(1)).getReviewById(1L);
-    }
-
-    @Test
-    public void testGetReviewsByBookId() {
-        List<Review> reviews = Arrays.asList(new Review(), new Review());
-        when(reviewService.getReviewsByBookId(1L)).thenReturn(reviews);
-
-        List<Review> result = reviewController.getReviewsByBookId(1L);
-
-        assertEquals(2, result.size());
-        verify(reviewService, times(1)).getReviewsByBookId(1L);
-    }
-
-    @Test
-    public void testGetReviewsByUserId() {
-        List<Review> reviews = Arrays.asList(new Review(), new Review());
-        when(reviewService.getReviewsByUserId(1L)).thenReturn(reviews);
-
-        List<Review> result = reviewController.getReviewsByUserId(1L);
-
-        assertEquals(2, result.size());
-        verify(reviewService, times(1)).getReviewsByUserId(1L);
-    }
-
-    @Test
-    public void testCreateReview() {
-        Review review = new Review();
-        review.setContent("Great book");
-        review.setRating(5);
-        when(reviewService.createReview(review)).thenReturn(review);
-
-        ResponseEntity<Review> response = reviewController.createReview(review);
-
-        assertEquals("Great book", response.getBody().getContent());
-        assertEquals(5, response.getBody().getRating());
-        verify(reviewService, times(1)).createReview(review);
-    }
-
-    @Test
-    public void testUpdateReview() {
-        Review review = new Review();
-        review.setContent("Updated content");
-        review.setRating(4);
-        when(reviewService.updateReview(1L, review)).thenReturn(review);
-
-        ResponseEntity<Review> response = reviewController.updateReview(1L, review);
-
-        assertEquals("Updated content", response.getBody().getContent());
-        assertEquals(4, response.getBody().getRating());
-        verify(reviewService, times(1)).updateReview(1L, review);
-    }
-
-    @Test
-    public void testDeleteReview() {
-        doNothing().when(reviewService).deleteReview(1L);
-
-        ResponseEntity<Void> response = reviewController.deleteReview(1L);
-
-        assertEquals(204, response.getStatusCodeValue());
-        verify(reviewService, times(1)).deleteReview(1L);
-    }
+    mockMvc.perform(get("/reviews/book/1"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("view-reviews"))
+        .andExpect(model().attributeExists("book"))
+        .andExpect(model().attributeExists("reviews"))
+        .andExpect(model().attributeExists("reviewPage"));
 }
+
+}
+

@@ -1,94 +1,123 @@
 package com.unibuc.bookmanagement.unit_tests.endpoints;
+
 import com.unibuc.bookmanagement.controllers.BookController;
+import com.unibuc.bookmanagement.models.Author;
 import com.unibuc.bookmanagement.models.Book;
+import com.unibuc.bookmanagement.services.AuthorService;
 import com.unibuc.bookmanagement.services.BookService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.*;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import org.springframework.http.MediaType;
-import java.util.Optional;
 
 import java.util.List;
-import java.util.Arrays;
+import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(BookController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class BookControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private BookService bookService;
 
+    @MockBean
+    private AuthorService authorService;
 
+    @Test
+    void testGetAllBooksPaginated() throws Exception {
+        Book book1 = new Book();
+        book1.setId(1L);
+        book1.setTitle("Book A");
 
-//    @Test
-//    void testGetBookById() throws Exception {
-//        Book book = new Book();
-//        book.setId(1L);
-//        book.setTitle("Test Book");
-//        book.setAuthorId(10L);
-//
-//        when(bookService.getBookById(1L)).thenReturn(Optional.of(book));
-//
-//        mockMvc.perform(get("/api/books/1"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id").value(1L))
-//                .andExpect(jsonPath("$.title").value("Test Book"))
-//                .andExpect(jsonPath("$.authorId").value(10L));
-//
-//        verify(bookService, times(1)).getBookById(1L);
-//    }
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("title").ascending());
+        Page<Book> page = new PageImpl<>(List.of(book1), pageable, 1);
 
-//    @Test
-//    void testGetBookById_NotFound() throws Exception {
-//        when(bookService.getBookById(1L)).thenReturn(Optional.empty());
-//
-//        mockMvc.perform(get("/api/books/1"))
-//                .andExpect(status().isNotFound());
-//
-//        verify(bookService, times(1)).getBookById(1L);
-//    }
+        when(bookService.getBooks(any(Pageable.class))).thenReturn(page);
 
-//    @Test
-//    void testGetAllBooks() throws Exception {
-//        Book book1 = new Book();
-//        book1.setId(1L);
-//        book1.setTitle("Test Book 1");
-//        book1.setAuthorId(10L);
-//
-//        Book book2 = new Book();
-//        book2.setId(2L);
-//        book2.setTitle("Test Book 2");
-//        book2.setAuthorId(20L);
-//
-//        List<Book> books = Arrays.asList(book1, book2);
-//
-//        when(bookService.getAllBooks()).thenReturn(books);
-//
-//        mockMvc.perform(get("/api/books"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.length()").value(2))
-//                .andExpect(jsonPath("$[0].title").value("Test Book 1"))
-//                .andExpect(jsonPath("$[1].title").value("Test Book 2"));
-//
-//        verify(bookService, times(1)).getAllBooks();
-//    }
+        mockMvc.perform(get("/books")
+                .param("page", "0")
+                .param("size", "10")
+                .param("sort", "title")
+                .param("dir", "asc"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("book_list"))
+                .andExpect(model().attributeExists("bookPage"));
+    }
 
-//    @Test
-//    void testDeleteBook() throws Exception {
-//        doNothing().when(bookService).deleteBook(1L);
-//
-//        mockMvc.perform(delete("/api/books/1"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().string("Book deleted successfully"));
-//
-//        verify(bookService, times(1)).deleteBook(1L);
-//    }
+    @Test
+    void testBookDetailsFound() throws Exception {
+        Book book = new Book();
+        book.setId(1L);
+        book.setTitle("Test Book");
+        book.setAuthorId(10L);
+
+        Author author = new Author();
+        author.setId(10L);
+        author.setName("John Doe");
+
+        when(bookService.getBookById(1L)).thenReturn(Optional.of(book));
+        when(authorService.getAuthorById(10L)).thenReturn(Optional.of(author));
+
+        mockMvc.perform(get("/books/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("book-details"))
+                .andExpect(model().attributeExists("book"));
+    }
+
+    @Test
+    void testBookDetailsNotFound() throws Exception {
+        when(bookService.getBookById(999L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/books/999"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/books"));
+    }
+
+    @Test
+    void testShowAddBookForm() throws Exception {
+        mockMvc.perform(get("/books/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("add_book"))
+                .andExpect(model().attributeExists("book"));
+    }
+
+    @Test
+    void testDeleteBook() throws Exception {
+        mockMvc.perform(post("/books/delete/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/books"));
+    }
+
+    @Test
+    void testFindBookByTitleFound() throws Exception {
+        Book book = new Book();
+        book.setId(123L);
+        book.setTitle("Some Book");
+
+        when(bookService.getBookByTitle("Some Book")).thenReturn(Optional.of(book));
+
+        mockMvc.perform(get("/books/find").param("query", "Some Book"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/books/123"));
+    }
+
+    @Test
+    void testFindBookByTitleNotFound() throws Exception {
+        when(bookService.getBookByTitle("Unknown Book")).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/books/find").param("query", "Unknown Book"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/books"));
+    }
 }
