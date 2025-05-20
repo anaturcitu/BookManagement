@@ -2,7 +2,6 @@ package com.unibuc.bookmanagement.models;
 //import javax.persistence.GeneratedValue;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
