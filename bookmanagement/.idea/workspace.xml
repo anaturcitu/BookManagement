@@ -4,7 +4,53 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="109f5941-0a51-43d9-92a1-7e9abf73e17a" name="Changes" comment="" />
+    <list default="true" id="109f5941-0a51-43d9-92a1-7e9abf73e17a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/bookmanagement/src/main/java/com/unibuc/bookmanagement/models/BookInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bookmanagement/src/main/java/com/unibuc/bookmanagement/repositories/BookInfoRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bookmanagement/src/main/java/com/unibuc/bookmanagement/services/BookInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/src/main/java/com/unibuc/bookmanagement/models/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/src/main/java/com/unibuc/bookmanagement/models/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/BookmanagementApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/BookmanagementApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/AdminInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/AdminInitializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/ErrorConfig$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/ErrorConfig$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/ErrorConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/ErrorConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/SwaggerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/SwaggerConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/ThymeleafConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/config/ThymeleafConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/AuthorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/AuthorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/BookController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/GenreController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/GenreController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/ReviewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/ReviewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/UserBookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/UserBookController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/dto/BookDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/dto/BookDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/dto/LoginRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/dto/LoginRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/dto/RegisterRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/dto/RegisterRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/dto/ReviewDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/dto/ReviewDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/errors/CustomErrorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/errors/CustomErrorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/junction_tables/UserBookId.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/junction_tables/UserBookId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/Author.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/Author.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/Book.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/Genre.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/Genre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/Review.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/UserBook.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/models/UserBook.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/AuthorRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/AuthorRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/BookRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/BookRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/GenreRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/GenreRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/ReviewRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/ReviewRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/UserBookRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/UserBookRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/AuthorService.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/AuthorService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/BookService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/CustomUserDetailsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/CustomUserDetailsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/GenreService.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/GenreService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/ReviewService.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/ReviewService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/UserBookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/UserBookService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/bookmanagement/target/classes/com/unibuc/bookmanagement/services/UserService.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,14 +72,8 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
         <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
-    </option>
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
     </option>
   </component>
   <component name="ProjectId" id="2pWzYqcapWFTIMxGxe1PQ1H59i3" />
@@ -45,7 +85,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Ana/Desktop/bookmanagement/bookmanagement"
+    "last_opened_file_path": "C:/Users/Ana/Desktop/awbd_branch/BookManagement/bookmanagement"
   }
 }]]></component>
   <component name="RunManager">

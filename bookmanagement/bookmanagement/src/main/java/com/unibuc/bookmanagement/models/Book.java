@@ -49,6 +49,9 @@ public class Book {
     @JsonIgnoreProperties("books")
     private Set<Genre> genres;
 
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    private BookInfo bookInfo;
+
     public Book(){}
 
     public Book(Long id, String title, String description, String isbn, Long authorId) // plus id si id_author
