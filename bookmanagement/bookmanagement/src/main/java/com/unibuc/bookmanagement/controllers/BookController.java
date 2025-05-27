@@ -98,13 +98,13 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String addBook(@Valid @ModelAttribute("book") Book book, BindingResult result) {
+    public String addBook(@Valid @ModelAttribute("book") BookDTO bookDTO, BindingResult result) {
         if (result.hasErrors()) {
             logger.warn("Eroare la validarea formularului de adăugare carte: {}", result.getAllErrors());
             return "add_book";
         }
-        logger.info("Se adaugă o carte nouă: {}", book.getTitle());
-        bookService.createBook(book);
+        logger.info("Se adaugă o carte nouă: {}", bookDTO.getTitle());
+        bookService.createBook(bookDTO);
         return "redirect:/books";
     }
 
