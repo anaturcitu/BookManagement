@@ -1,5 +1,6 @@
 package com.unibuc.bookmanagement.controllers;
 
+import com.unibuc.bookmanagement.junction_tables.UserBookId;
 import com.unibuc.bookmanagement.models.UserBook;
 import com.unibuc.bookmanagement.services.UserBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,15 @@ public class UserBookController {
     public ResponseEntity<UserBook> addUserBook(@RequestBody UserBook userBook) {
         logger.info("Se adaugă o nouă relație utilizator-carte: userId={}, bookId={}",
                 userBook.getUser().getId(), userBook.getBook().getId());
+
+        // setare manual cheia compusa
+        UserBookId id = new UserBookId(userBook.getUser().getId(), userBook.getBook().getId());
+        userBook.setId(id);
+
         UserBook createdUserBook = userBookService.addUserBook(userBook);
         return ResponseEntity.ok(createdUserBook);
     }
+
 
     @GetMapping("/users/{userId}")
     public ResponseEntity<List<UserBook>> getUserBooks(@PathVariable Long userId) {
