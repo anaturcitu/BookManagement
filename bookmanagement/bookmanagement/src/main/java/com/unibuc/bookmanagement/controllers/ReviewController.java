@@ -38,6 +38,7 @@ public class ReviewController {
     private BookService bookService;
 
     @GetMapping
+    @ResponseBody
     public List<Review> getAllReviews() {
         logger.info("Se obțin toate recenziile din sistem");
         return reviewService.getAllReviews();
