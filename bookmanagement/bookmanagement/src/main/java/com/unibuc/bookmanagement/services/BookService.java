@@ -1,7 +1,9 @@
 package com.unibuc.bookmanagement.services;
 
+import com.unibuc.bookmanagement.dto.BookDTO;
 import com.unibuc.bookmanagement.models.Book;
 import com.unibuc.bookmanagement.repositories.BookRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,12 +21,21 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Book createBook(Book book) {
-        logger.info("Creare carte nouă: {}", book.getTitle());
+    public Book createBook(BookDTO bookDTO) {
+        logger.info("Creare carte nouă: {}", bookDTO.getTitle());
+
+        // Conversie DTO -> Entity
+        Book book = new Book();
+        book.setTitle(bookDTO.getTitle());
+        book.setIsbn(bookDTO.getIsbn());
+        book.setDescription(bookDTO.getDescription());
+        book.setAuthorId(bookDTO.getAuthorId());
+
         Book savedBook = bookRepository.save(book);
         logger.info("Cartea a fost creată cu ID-ul: {}", savedBook.getId());
         return savedBook;
     }
+
 
     public Optional<Book> getBookById(Long id) {
         logger.info("Căutare carte după ID: {}", id);
