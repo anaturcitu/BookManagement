@@ -12,6 +12,6 @@ public class BookmanagementApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookmanagementApplication.class, args);
-		logger.info("Aplicația BookManagement a fost pornită cu succes.");
+		logger.info("Aplicatia BookManagement a fost pornita cu succes.");
 	}
 }

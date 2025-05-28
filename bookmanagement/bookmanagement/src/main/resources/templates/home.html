@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+
+<div class="container card shadow p-4 mt-5" style="max-width: 700px;">
+    <h2 class="text-center mb-4">Bun venit!</h2>
+
+    <div class="d-grid gap-2">
+        <a th:href="@{/books}" class="btn btn-primary btn-lg">Vezi toate cărțile</a>
+        <a th:href="@{/reviews}" class="btn btn-secondary btn-lg">Vezi recenziile</a>
+        <a th:href="@{/books/add}" class="btn btn-success btn-lg" 
+           th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Adaugă carte</a>
+        <a th:href="@{/authors/add}" class="btn btn-info btn-lg" 
+           th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Adaugă autor</a>
+        <a th:href="@{/logout}" class="btn btn-outline-danger btn-lg">Logout</a>
+    </div>
+</div>
+
+</body>
+</html>

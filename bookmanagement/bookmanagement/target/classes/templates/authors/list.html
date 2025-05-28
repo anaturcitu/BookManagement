@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista autorilor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        th a:hover {
+            text-decoration: underline;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
+
+        .pagination span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Lista autorilor</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>
+            <a th:href="@{'/authors?page=0&sort=name&dir=' + (${sort == 'name' and dir == 'asc'} ? 'desc' : 'asc')}">
+                Nume
+            </a>
+        </th>
+        <th>
+            <a th:href="@{'/authors?page=0&sort=birthDate&dir=' + (${sort == 'birthDate' and dir == 'asc'} ? 'desc' : 'asc')}">
+                Data nașterii
+            </a>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="author : ${authors.content}">
+        <td th:text="${author.name}"></td>
+        <td th:text="${author.birthDate}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="pagination">
+    <a th:if="${authors.hasPrevious()}"
+       th:href="@{'/authors?page=' + ${authors.number - 1} + '&size=' + ${size} + '&sort=' + ${sort} + '&dir=' + ${dir}}">
+        &larr; Anterior
+    </a>
+
+    <span>Pagina <span th:text="${authors.number + 1}"></span> din <span th:text="${authors.totalPages}"></span></span>
+
+    <a th:if="${authors.hasNext()}"
+       th:href="@{'/authors?page=' + ${authors.number + 1} + '&size=' + ${size} + '&sort=' + ${sort} + '&dir=' + ${dir}}">
+        Următor &rarr;
+    </a>
+</div>
+
+</body>
+</html>

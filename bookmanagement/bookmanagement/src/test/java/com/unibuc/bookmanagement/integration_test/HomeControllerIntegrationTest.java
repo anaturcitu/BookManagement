@@ -9,11 +9,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+
+import com.unibuc.bookmanagement.config.TestSecurityConfig;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test") // activeaza profilul "test"
-@Import({TestSecurityConfig.class, NoSecurityConfig.class})
+@Import({TestSecurityConfig.class})
 public class HomeControllerIntegrationTest {
 
     @LocalServerPort

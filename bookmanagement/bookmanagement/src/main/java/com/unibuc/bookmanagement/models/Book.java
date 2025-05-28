@@ -1,7 +1,6 @@
 package com.unibuc.bookmanagement.models;
 //import javax.persistence.GeneratedValue;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -10,6 +9,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,8 +46,9 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"), // coloana cheie straina din tabela intermediara
             inverseJoinColumns = @JoinColumn(name = "genre_id") // coloana cheie straina din tabela intermediara
     )
+
     @JsonIgnoreProperties("books")
-    private Set<Genre> genres;
+    private Set<Genre> genres = new HashSet<>(); 
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
     private BookInfo bookInfo;

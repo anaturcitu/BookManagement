@@ -1,5 +1,6 @@
 package com.unibuc.bookmanagement.unit_tests.services;
 
+import com.unibuc.bookmanagement.dto.AuthorDTO;
 import com.unibuc.bookmanagement.models.Author;
 import com.unibuc.bookmanagement.repositories.AuthorRepository;
 import com.unibuc.bookmanagement.services.AuthorService;
@@ -27,16 +28,24 @@ public class AuthorServiceTest {
 
     @Test
     void testCreateAuthor() {
-        Author author = new Author();
-        author.setName("Andrei Popescu");
+        // Creez un AuthorDTO
+        AuthorDTO dto = new AuthorDTO();
+        dto.setName("Andrei Popescu");
+        dto.setBirthDate("2000-01-01"); // string valid pt LocalDate.parse()
 
-        when(authorRepository.save(any(Author.class))).thenReturn(author);
+        // Creez obiectul Author care va fi returnat din mock
+        Author savedAuthor = new Author();
+        savedAuthor.setName("Andrei Popescu");
 
-        Author result = authorService.createAuthor(author);
+        when(authorRepository.save(any(Author.class))).thenReturn(savedAuthor);
 
+        // Apelul testat
+        Author result = authorService.createAuthor(dto);
+
+        // Verificări
         assertNotNull(result);
         assertEquals("Andrei Popescu", result.getName());
-        verify(authorRepository, times(1)).save(author);
+        verify(authorRepository, times(1)).save(any(Author.class));
     }
 
     @Test

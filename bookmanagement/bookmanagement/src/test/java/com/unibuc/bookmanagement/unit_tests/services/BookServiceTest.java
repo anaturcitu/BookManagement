@@ -1,5 +1,6 @@
 package com.unibuc.bookmanagement.unit_tests.services;
 
+import com.unibuc.bookmanagement.dto.BookDTO;
 import com.unibuc.bookmanagement.models.Book;
 import com.unibuc.bookmanagement.repositories.BookRepository;
 import com.unibuc.bookmanagement.services.BookService;
@@ -29,17 +30,26 @@ public class BookServiceTest {
 
     @Test
     void testCreateBook() {
-        Book book = new Book();
-        book.setTitle("Carte de Test");
-        book.setAuthorId(1L);
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTitle("Carte de Test");
+        bookDTO.setIsbn("1234567890");
+        bookDTO.setDescription("O carte de test");
+        bookDTO.setAuthorId(1L);
 
-        when(bookRepository.save(any(Book.class))).thenReturn(book);
+        Book expectedBook = new Book();
+        expectedBook.setTitle(bookDTO.getTitle());
+        expectedBook.setIsbn(bookDTO.getIsbn());
+        expectedBook.setDescription(bookDTO.getDescription());
+        expectedBook.setAuthorId(bookDTO.getAuthorId());
 
-        Book result = bookService.createBook(book);
+        when(bookRepository.save(any(Book.class))).thenReturn(expectedBook);
+
+        Book result = bookService.createBook(bookDTO);
 
         assertNotNull(result);
         assertEquals("Carte de Test", result.getTitle());
-        verify(bookRepository, times(1)).save(book);
+        assertEquals("1234567890", result.getIsbn());
+        verify(bookRepository, times(1)).save(any(Book.class));
     }
 
     @Test

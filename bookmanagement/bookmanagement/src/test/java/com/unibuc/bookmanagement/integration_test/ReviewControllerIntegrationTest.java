@@ -1,5 +1,6 @@
 package com.unibuc.bookmanagement.integration_test;
 
+import com.unibuc.bookmanagement.config.TestSecurityConfig;
 import com.unibuc.bookmanagement.models.Book;
 import com.unibuc.bookmanagement.models.Review;
 import com.unibuc.bookmanagement.models.User;
@@ -20,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@Import({TestSecurityConfig.class, NoSecurityConfig.class})
+@Import({TestSecurityConfig.class})
 public class ReviewControllerIntegrationTest {
 
     @LocalServerPort

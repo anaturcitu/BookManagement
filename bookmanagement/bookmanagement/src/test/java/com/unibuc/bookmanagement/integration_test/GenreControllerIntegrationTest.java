@@ -1,5 +1,6 @@
 package com.unibuc.bookmanagement.integration_test;
 
+import com.unibuc.bookmanagement.config.TestSecurityConfig;
 import com.unibuc.bookmanagement.models.Genre;
 import com.unibuc.bookmanagement.repositories.GenreRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@Import({TestSecurityConfig.class, NoSecurityConfig.class})
+@Import({TestSecurityConfig.class})
 public class GenreControllerIntegrationTest {
 
     @LocalServerPort

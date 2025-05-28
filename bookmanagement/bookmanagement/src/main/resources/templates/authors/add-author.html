@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Adaugă Autor</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        margin: 40px auto;
+        max-width: 600px;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    p {
+        color: red;
+        font-size: 13px;
+        margin: 5px 0 0 0;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Adaugă un autor</h1>
+
+<form th:action="@{/authors/add}" th:object="${authorDTO}" method="post">
+  <!--CSR TOKEN!-->
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+  <div class="form-group">
+    <label>Nume:</label>
+    <input type="text" th:field="*{name}" />
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+  </div>
+
+  <div class="form-group">
+    <label>Data nașterii:</label>
+    <input type="date" th:field="*{birthDate}" />
+    <p th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></p>
+  </div>
+
+  <button type="submit">Salvează</button>
+</form>
+
+</body>
+</html>

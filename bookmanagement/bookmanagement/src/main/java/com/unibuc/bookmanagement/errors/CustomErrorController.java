@@ -22,14 +22,14 @@ public class CustomErrorController implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
-        System.out.println("HANDLE ERROR TRIGGERED");
-
 
         WebRequest webRequest = new ServletWebRequest(request);
         Map<String, Object> errorDetails = errorAttributes.getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
 
         Integer statusCode = (Integer) errorDetails.get("status");
         model.addAttribute("code", statusCode);
+        
+        System.out.println("HANDLE ERROR TRIGGERED" + errorDetails);
 
         if (statusCode != null) {
             return switch (statusCode) {

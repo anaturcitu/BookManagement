@@ -4,12 +4,14 @@ import com.unibuc.bookmanagement.models.User;
 import com.unibuc.bookmanagement.repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Profile("!test")
 public class AdminInitializer {
 
     private final UserRepository userRepository;
