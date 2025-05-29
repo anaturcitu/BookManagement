@@ -1,3 +1,5 @@
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
 # Book Management 📚
 
@@ -208,11 +210,85 @@ TODO: Seed data cu câteva cărți și utilizatori demo
 - Layout principal & fragmente header/footer
 - Guideline stilizare: Bootstrap 5 + custom CSS
 
+## 12. Testare unitară
 
-## 12. Testare
+Testarea unitară a fost implementată cu ajutorul framework-ului **JUnit 5** și **Mockito**.  
+Se testează corectitudinea logicii pentru operațiile de bază pe fiecare entitate importantă din aplicație: cărți, autori, recenzii, utilizatori, genuri.
 
-```bash
-mvn test
+### Exemple de teste unitare
+
+- **Test creare carte validă**
+```java
+@Test
+void testCreateValidBook() {
+    Book book = new Book("Titlu", "Descriere", "1234567890123", 1L);
+    when(bookRepository.save(book)).thenReturn(book);
+    Book result = bookService.createBook(book);
+    assertEquals("Titlu", result.getTitle());
+}
 ```
-Framework-uri: JUnit 5, Mockito, Spring Test  
+
+- **Test validare ISBN invalid**
+```java
+@Test
+void testInvalidIsbnThrowsException() {
+    Book book = new Book("Titlu", "Descriere", "abc", 1L);
+    assertThrows(InvalidBookException.class, () -> bookService.createBook(book));
+}
+```
+
+- **Test ștergere autor**
+```java
+@Test
+void testDeleteAuthor() {
+    Long authorId = 1L;
+    doNothing().when(authorRepository).deleteById(authorId);
+    authorService.deleteAuthor(authorId);
+    verify(authorRepository, times(1)).deleteById(authorId);
+}
+```
+
+---
+
+## 13. Testare de integrare
+
+Testele de integrare verifică funcționarea corectă a întregului flux: controller + service + repository + DB (H2).  
+Folosim adnotările `@SpringBootTest`, `@TestRestTemplate` și profilul `test`.
+
+### Exemple de teste de integrare
+
+- **Test GET /books**
+```java
+@Test
+void testGetBooksEndpoint() {
+    ResponseEntity<String> response = restTemplate.getForEntity(url("/books"), String.class);
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertTrue(response.getBody().contains("Titlu"));
+}
+```
+
+- **Test POST /authors/add**
+```java
+@Test
+void testAddAuthor() {
+    MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
+    form.add("name", "Test Author");
+    form.add("birthDate", "1970-01-01");
+
+    ResponseEntity<String> response = restTemplate.postForEntity(url("/authors/add"), form, String.class);
+    assertEquals(HttpStatus.FOUND, response.getStatusCode());
+    assertTrue(response.getHeaders().getLocation().toString().contains("/authors"));
+}
+```
+
+- **Test GET /reviews/book/{id}**
+```java
+@Test
+void testGetReviewsForBook() {
+    Long bookId = 1L;
+    ResponseEntity<String> response = restTemplate.getForEntity(url("/reviews/book/" + bookId), String.class);
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertTrue(response.getBody().contains("Recenzie"));
+}
+```
 
