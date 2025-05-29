@@ -36,34 +36,44 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                // .authorizeHttpRequests(auth -> auth
-                //         .requestMatchers("/users/register", "/books", "/error/**", "/users/login", "/css/**", "/js/**").permitAll()
-                //         .requestMatchers("/books/add").hasRole("ADMIN")
-                //         .anyRequest().authenticated()
-                // )
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers(
+                "/users/register",
+                "/users/login",
+                "/css/**",
+                "/js/**",
+                "/images/**"
+            ).permitAll()
 
-                .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/users/register", "/users/login", "/css/**", "/js/**", "/images/**").permitAll()
-                    .requestMatchers("/books/add", "/authors/add").hasRole("ADMIN") // doar admin
-                    .requestMatchers("/books/**").authenticated() // toți cei logați, admini și useri
-                    .anyRequest().authenticated()
-)
-                .formLogin(form -> form
-                        .loginPage("/users/login")  // ruta GET catre pagina de login
-                        .loginProcessingUrl("/login") // ruta POST de autentificare (default: /login)
-                        .defaultSuccessUrl("/books", true)
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/users/login?logout")
-                        .permitAll()
-                );
+            // acces public pentru listă cărți, detalii și căutare
+            .requestMatchers("/books", "/books/{id}", "/books/find").permitAll()
 
-        return http.build();
-    }
+            // doar adminul poate adăuga cărți sau autori
+            .requestMatchers("/books/add", "/authors/add").hasRole("ADMIN")
+
+            // orice altceva din /books/** (ex: delete) → doar logați
+            .requestMatchers("/books/**").authenticated()
+
+            // restul aplicației → necesită autentificare
+            .anyRequest().authenticated()
+        )
+        .formLogin(form -> form
+            .loginPage("/users/login")  // ruta GET către pagina de login
+            .loginProcessingUrl("/login") // ruta POST de autentificare
+            .defaultSuccessUrl("/books", true)
+            .permitAll()
+        )
+        .logout(logout -> logout
+            .logoutSuccessUrl("/users/login?logout")
+            .permitAll()
+        );
+
+    return http.build();
+}
+
 
 
     @Bean

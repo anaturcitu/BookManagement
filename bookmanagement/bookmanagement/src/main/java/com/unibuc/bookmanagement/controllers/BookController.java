@@ -94,6 +94,7 @@ public class BookController {
     public String showAddBookForm(Model model) {
         logger.info("Se afișează formularul de adăugare a unei cărți");
         model.addAttribute("book", new BookDTO());
+        model.addAttribute("authors", authorService.getAllAuthors()); // <- trimitem lista autorilor
         return "add_book";
     }
 

@@ -11,7 +11,6 @@ D:\facultate\master\an1sem2\awbd\BookManagement\bookmanagement\bookmanagement\sr
 D:\facultate\master\an1sem2\awbd\BookManagement\bookmanagement\bookmanagement\src\test\java\com\unibuc\bookmanagement\integration_test\NoSecurityConfig.java
 D:\facultate\master\an1sem2\awbd\BookManagement\bookmanagement\bookmanagement\src\test\java\com\unibuc\bookmanagement\integration_test\ReviewControllerIntegrationTest.java
 D:\facultate\master\an1sem2\awbd\BookManagement\bookmanagement\bookmanagement\src\test\java\com\unibuc\bookmanagement\integration_test\UserBookControllerIntegrationTest.java
-D:\facultate\master\an1sem2\awbd\BookManagement\bookmanagement\bookmanagement\src\test\java\com\unibuc\bookmanagement\integration_test\UserControllerIntegrationTest.java
 D:\facultate\master\an1sem2\awbd\BookManagement\bookmanagement\bookmanagement\src\test\java\com\unibuc\bookmanagement\unit_tests\endpoints\AuthorControllerTest.java
 D:\facultate\master\an1sem2\awbd\BookManagement\bookmanagement\bookmanagement\src\test\java\com\unibuc\bookmanagement\unit_tests\endpoints\BookControllerTest.java
 D:\facultate\master\an1sem2\awbd\BookManagement\bookmanagement\bookmanagement\src\test\java\com\unibuc\bookmanagement\unit_tests\endpoints\GenreControllerTest.java

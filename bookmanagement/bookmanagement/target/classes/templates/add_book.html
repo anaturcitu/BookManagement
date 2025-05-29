@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Adaugă Carte</title>
+  <meta charset="UTF-8">
   <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,7 +38,8 @@
 
         input[type="text"],
         input[type="number"],
-        textarea {
+        textarea,
+        select {
             padding: 10px;
             font-size: 14px;
             border: 1px solid #ccc;
@@ -68,13 +70,27 @@
         button:hover {
             background-color: #45a049;
         }
-    </style>
+
+        /* Stil link ca în 404 */
+        a.custom-link {
+            text-decoration: none;
+            color: #0275d8;
+            font-size: 14px;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        a.custom-link:hover {
+            text-decoration: underline;
+        }
+  </style>
 </head>
 <body>
 
 <h1>Adaugă o carte</h1>
 
 <form th:action="@{/books/add}" th:object="${book}" method="post">
+
   <div class="form-group">
     <label>Titlu:</label>
     <input type="text" th:field="*{title}" />
@@ -94,9 +110,17 @@
   </div>
 
   <div class="form-group">
-    <label>ID Autor:</label>
-    <input type="number" th:field="*{authorId}" />
+    <label>Autor:</label>
+    <select th:field="*{authorId}">
+      <option value="" disabled selected>Selectează autorul</option>
+      <option th:each="author : ${authors}"
+              th:value="${author.id}"
+              th:text="${author.name}">
+      </option>
+    </select>
     <p th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"></p>
+
+    <a href="/authors/add" class="custom-link">Nu găsești autorul? Adaugă unul nou.</a>
   </div>
 
   <button type="submit">Salvează</button>

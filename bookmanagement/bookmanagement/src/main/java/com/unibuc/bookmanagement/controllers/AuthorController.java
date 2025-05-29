@@ -39,7 +39,7 @@ public class AuthorController {
             model.addAttribute("authorDTO", new AuthorDTO());
             return "authors/add-author";
         } catch (Exception e) {
-            e.printStackTrace(); // ❤️ AICI va apărea cauza exactă în consola testului
+            e.printStackTrace();
             throw e;
         }
     }

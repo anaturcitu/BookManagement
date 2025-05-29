@@ -1,5 +1,6 @@
 package com.unibuc.bookmanagement.integration_test;
 
+import com.unibuc.bookmanagement.config.TestSecurityConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,14 +10,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-
-import com.unibuc.bookmanagement.config.TestSecurityConfig;
+import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test") // activeaza profilul "test"
+@ActiveProfiles("test")
 @Import({TestSecurityConfig.class})
+@TestPropertySource(properties = "spring.main.allow-bean-definition-overriding=true")
 public class HomeControllerIntegrationTest {
 
     @LocalServerPort
@@ -25,20 +26,18 @@ public class HomeControllerIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    // construieste url-ul complet pentru request
     private String url(String path) {
         return "http://localhost:" + port + path;
     }
 
     @Test
-    void whenAccessHome_thenReturnsBooksPage() {
-        // trimite un GET catre "/"
+    void whenAccessHome_thenIsRedirectedToBooks() {
         ResponseEntity<String> response = restTemplate.getForEntity(url("/"), String.class);
 
-        // verifica ca raspunsul are status 200 OK
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // Verifică că statusul este 302 FOUND (redirect)
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FOUND);
 
-        // verifica ca raspunsul contine continutul specific paginii de carti
-        assertThat(response.getBody()).contains("Lista cări");
+        // Verifică că redirectul este către /books
+        assertThat(response.getHeaders().getLocation().toString()).contains("/books");
     }
 }

@@ -16,12 +16,15 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @Import({TestSecurityConfig.class})
+@TestPropertySource(properties = "spring.main.allow-bean-definition-overriding=true")
+
 public class ReviewControllerIntegrationTest {
 
     @LocalServerPort
