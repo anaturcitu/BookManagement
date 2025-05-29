@@ -104,12 +104,13 @@ Această pagină poate fi vizualizată doar de admini.
 
 ```mermaid
 graph LR
-    UI[Thymeleaf & HTMX] --> C[Controller]
+    UI[Thymeleaf] --> C[Controller]
     C --> S[Service]
     S --> R[Repository]
     R --> DB[(MySQL/H2)]
     S --> Sec[Spring Security]
     Logs((Logback)) --> S
+
 ```
 
 | Layer      | Tehnologii |
